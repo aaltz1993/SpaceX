@@ -1,0 +1,29 @@
+name: spacex
+description: spacex :)
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  bloc: ^8.1.1
+  cached_network_image: ^3.2.3
+  crew_repository:
+    path: packages/crew_repository
+  cupertino_icons: ^1.0.2
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.2
+  spacex_api:
+    path: packages/spacex_api
+
+dev_dependencies:
+  bloc_test: ^9.1.1
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
