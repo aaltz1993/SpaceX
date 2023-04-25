@@ -1,17 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
+import 'package:spacex/common/load_state.dart';
 import 'package:spacex/crew/crew.dart';
+
+final Logger _logger = Logger(
+  printer: PrettyPrinter(),
+);
 
 class CrewScreen extends StatelessWidget {
   const CrewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => CrewCubit(
-        crewRepository: context.read(),
-      )..fetchCrewMembers(),
+    final CrewCubit crewCubit = CrewCubit(crewRepository: context.read())
+      ..fetchCrewMembers();
+
+    BlocListener(
+      listener: (context, state) => _logger.d('BLoC.Listener => $state'),
+      bloc: crewCubit,
+    );
+
+    return BlocProvider.value(
+      value: crewCubit,
       child: const CrewView(),
     );
   }

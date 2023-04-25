@@ -1,12 +1,5 @@
 part of 'crew_cubit.dart';
 
-enum LoadState {
-  none,
-  loading,
-  success,
-  failure,
-}
-
 class CrewState extends Equatable {
   const CrewState({
     this.loadState = LoadState.none,

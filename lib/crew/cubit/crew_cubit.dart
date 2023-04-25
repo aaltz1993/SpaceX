@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:crew_repository/crew_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:spacex/common/load_state.dart';
 import 'package:spacex_api/spacex_api.dart';
 
 part 'crew_state.dart';
