@@ -2,7 +2,7 @@ import 'package:crew_repository/crew_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rocket_repository/rocket_repository.dart';
-import 'package:spacex/rockets/rockets.dart';
+import 'package:spacex/home/home.dart';
 
 class SpaceXApp extends StatelessWidget {
   const SpaceXApp({
@@ -44,7 +44,7 @@ class SpaceXAppView extends StatelessWidget {
           space: 0.0,
         ),
       ),
-      home: const RocketsScreen(),
+      home: const HomeScreen(),
     );
   }
 }

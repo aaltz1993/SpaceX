@@ -1,29 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:crew_repository/crew_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:spacex/common/load_state.dart';
 import 'package:spacex/crew/crew.dart';
-
-final Logger _logger = Logger(
-  printer: PrettyPrinter(),
-);
+import 'package:spacex/crew_member_details/crew_member_details.dart';
 
 class CrewScreen extends StatelessWidget {
   const CrewScreen({super.key});
 
+  static Route<CrewScreen> route() {
+    return MaterialPageRoute(
+      builder: (_) => const CrewScreen(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final CrewCubit crewCubit = CrewCubit(crewRepository: context.read())
-      ..fetchCrewMembers();
-
-    BlocListener(
-      listener: (context, state) => _logger.d('BLoC.Listener => $state'),
-      bloc: crewCubit,
-    );
-
-    return BlocProvider.value(
-      value: crewCubit,
+    return BlocProvider(
+      create: (_) => CrewCubit(
+        crewRepository: context.read<CrewRepository>(),
+      )..fetchCrewMembers(),
       child: const CrewView(),
     );
   }
@@ -54,7 +51,7 @@ class _Content extends StatelessWidget {
         context.select((CrewCubit crewCubit) => crewCubit.state.loadState);
 
     switch (loadState) {
-      case LoadState.none:
+      case LoadState.initial:
         return const SizedBox(
           key: Key('crew_view_none_sized_box'),
         );
@@ -100,7 +97,9 @@ class _CrewMembersList extends StatelessWidget {
             ),
             trailing: const Icon(Icons.chevron_right_rounded),
             onTap: () {
-              Navigator.of(context);
+              Navigator.of(context).push(
+                CrewMemberDetailsScreen.route(crewMember: crewMember),
+              );
             },
           ),
           const Divider(),

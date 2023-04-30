@@ -1,5 +1,5 @@
 enum LoadState {
-  none,
+  initial,
   loading,
   success,
   failure,

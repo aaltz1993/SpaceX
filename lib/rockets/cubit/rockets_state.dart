@@ -5,7 +5,7 @@ class RocketsState extends Equatable {
   final List<Rocket>? rockets;
 
   const RocketsState({
-    this.loadState = LoadState.none,
+    this.loadState = LoadState.initial,
     this.rockets,
   });
 

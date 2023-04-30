@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rocket_repository/rocket_repository.dart';
 import 'package:spacex/common/load_state.dart';
+import 'package:spacex/rocket_details/rocket_details.dart';
 import 'package:spacex/rockets/cubit/rockets_cubit.dart';
 
 class RocketsScreen extends StatelessWidget {
   const RocketsScreen({super.key});
+
+  static Route<RocketsScreen> route() {
+    return MaterialPageRoute(
+      builder: (_) => const RocketsScreen(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +50,7 @@ class _Content extends StatelessWidget {
         context.select((RocketsCubit cubit) => cubit.state.loadState);
 
     switch (loadState) {
-      case LoadState.none:
+      case LoadState.initial:
         return const SizedBox(
           key: Key('rocketsView_none_sizedBox'),
         );
@@ -85,7 +92,9 @@ class _RocketList extends StatelessWidget {
             ),
             trailing: const Icon(Icons.chevron_right_rounded),
             isThreeLine: true,
-            onTap: () {},
+            onTap: () => Navigator.of(context).push(
+              RocketDetailsScreen.route(rocket: rocket),
+            ),
           ),
           const Divider(),
         ]
